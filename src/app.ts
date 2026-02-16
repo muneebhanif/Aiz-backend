@@ -1,9 +1,12 @@
 import express from 'express';
-import helmet from 'helmet';
+import helmetModule from 'helmet';
 import cors from 'cors';
 import { corsConfig } from './config/cors.config.js';
 import { errorHandler, notFoundHandler } from './middleware/error.middleware.js';
 import apiRoutes from './routes/index.js';
+
+// Handle ESM/CJS interop for helmet
+const helmet = (typeof helmetModule === 'function' ? helmetModule : (helmetModule as { default: typeof helmetModule }).default);
 
 const app = express();
 
