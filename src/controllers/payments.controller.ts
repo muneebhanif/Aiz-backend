@@ -69,6 +69,7 @@ export const paymentsController = {
 
   async update(req: Request, res: Response): Promise<void> {
     const updates: Record<string, unknown> = {};
+    if (req.body.amountDue !== undefined) updates.amount_due = req.body.amountDue;
     if (req.body.deduction !== undefined) updates.deduction = req.body.deduction;
     if (req.body.amountPaid !== undefined) updates.amount_paid = req.body.amountPaid;
     if (req.body.status !== undefined) updates.status = req.body.status;

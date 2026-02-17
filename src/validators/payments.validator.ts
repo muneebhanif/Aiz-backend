@@ -22,6 +22,7 @@ export const createPaymentBody = z.object({
 });
 
 export const updatePaymentBody = z.object({
+  amountDue: z.number().min(0),
   deduction: z.number().min(0),
   amountPaid: z.number().min(0),
   status: z.enum(['paid', 'partial', 'unpaid']),
