@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 import { rentalsService } from '../services/rentals.service.js';
-import { sendSuccess, sendCreated } from '../utils/response.js';
+import { sendSuccess, sendCreated, sendNoContent } from '../utils/response.js';
 import type { RentalRow } from '../repositories/rentals.repository.js';
 
 // snake_case DB row → camelCase API response
@@ -75,5 +75,10 @@ export const rentalsController = {
   async endRental(req: Request, res: Response): Promise<void> {
     const rental = await rentalsService.endRental(req.params.id as string, req.body.endDate);
     sendSuccess(res, toApiRental(rental));
+  },
+
+  async delete(req: Request, res: Response): Promise<void> {
+    await rentalsService.delete(req.params.id as string);
+    sendNoContent(res);
   },
 };

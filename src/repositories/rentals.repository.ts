@@ -112,4 +112,15 @@ export const rentalsRepository = {
     if (error) throw new InternalError(`Failed to end rental: ${error.message}`);
     return data as RentalRow;
   },
+
+  async delete(id: string): Promise<void> {
+    await this.findById(id); // ensure exists
+
+    const { error } = await getSupabase()
+      .from(TABLE)
+      .delete()
+      .eq('id', id);
+
+    if (error) throw new InternalError(`Failed to delete rental: ${error.message}`);
+  },
 };

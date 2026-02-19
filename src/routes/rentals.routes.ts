@@ -46,4 +46,11 @@ router.post(
   rentalsController.endRental,
 );
 
+// DELETE /api/v1/rentals/:id
+router.delete(
+  '/:id',
+  validate({ params: rentalIdParam }),
+  rentalsController.delete,
+);
+
 export default router;

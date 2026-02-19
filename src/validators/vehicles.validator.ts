@@ -16,6 +16,7 @@ export const createVehicleBody = z.object({
   model: z.string().min(1).max(50).trim(),
   year: z.number().int().min(1990).max(new Date().getFullYear() + 1),
   color: z.string().max(30).trim().default(''),
+  company: z.enum(['aiz-cars', 'fizzys-taxi-hire', 'other']).default('aiz-cars'),
   status: z.enum(['available', 'rented']).default('available'),
   roadTaxExpiry: optionalDate,
   motExpiry: optionalDate,

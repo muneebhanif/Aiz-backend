@@ -20,7 +20,7 @@ export interface PaymentRow {
 }
 
 type PaymentInsert = Omit<PaymentRow, 'id' | 'created_at' | 'updated_at'>;
-type PaymentUpdate = Partial<Pick<PaymentRow, 'deduction' | 'amount_paid' | 'status' | 'payment_date' | 'method' | 'remarks'>>;
+type PaymentUpdate = Partial<Pick<PaymentRow, 'amount_due' | 'deduction' | 'amount_paid' | 'status' | 'payment_date' | 'method' | 'remarks'>>;
 
 export interface PaymentFilters {
   rental_id?: string;

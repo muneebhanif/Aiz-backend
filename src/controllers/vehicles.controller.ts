@@ -12,6 +12,7 @@ function toApiVehicle(row: VehicleRow) {
     model: row.model,
     year: row.year,
     color: row.color,
+    company: row.company,
     status: row.status,
     roadTaxExpiry: row.road_tax_expiry,
     motExpiry: row.mot_expiry,
@@ -39,6 +40,7 @@ export const vehiclesController = {
       model: req.body.model,
       year: req.body.year,
       color: req.body.color,
+      company: req.body.company ?? 'aiz-cars',
       status: req.body.status ?? 'available',
       road_tax_expiry: req.body.roadTaxExpiry ?? null,
       mot_expiry: req.body.motExpiry ?? null,
@@ -55,6 +57,7 @@ export const vehiclesController = {
     if (req.body.model !== undefined) updates.model = req.body.model;
     if (req.body.year !== undefined) updates.year = req.body.year;
     if (req.body.color !== undefined) updates.color = req.body.color;
+    if (req.body.company !== undefined) updates.company = req.body.company;
     if (req.body.status !== undefined) updates.status = req.body.status;
     if (req.body.roadTaxExpiry !== undefined) updates.road_tax_expiry = req.body.roadTaxExpiry;
     if (req.body.motExpiry !== undefined) updates.mot_expiry = req.body.motExpiry;

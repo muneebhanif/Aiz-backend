@@ -1,5 +1,6 @@
 import { rentalsRepository, type RentalRow } from '../repositories/rentals.repository.js';
 import { vehiclesRepository } from '../repositories/vehicles.repository.js';
+import { paymentsRepository } from '../repositories/payments.repository.js';
 import { BadRequestError } from '../utils/errors.js';
 
 type CreateRentalInput = {
@@ -79,5 +80,22 @@ export const rentalsService = {
     await vehiclesRepository.updateStatus(rental.vehicle_id, 'available');
 
     return ended;
+  },
+
+  async delete(id: string): Promise<void> {
+    const rental = await rentalsRepository.findById(id);
+
+    // Delete all payments for this rental first
+    const rentalPayments = await paymentsRepository.findAll({ rental_id: id });
+    for (const p of rentalPayments) {
+      await paymentsRepository.delete(p.id);
+    }
+
+    // If rental was active, mark vehicle as available
+    if (rental.status === 'active') {
+      await vehiclesRepository.updateStatus(rental.vehicle_id, 'available');
+    }
+
+    await rentalsRepository.delete(id);
   },
 };

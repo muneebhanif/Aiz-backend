@@ -8,6 +8,7 @@ export interface VehicleRow {
   model: string;
   year: number;
   color: string;
+  company: 'aiz-cars' | 'fizzys-taxi-hire' | 'other';
   status: 'available' | 'rented';
   road_tax_expiry: string | null;
   mot_expiry: string | null;
