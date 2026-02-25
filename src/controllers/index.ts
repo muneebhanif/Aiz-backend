@@ -4,3 +4,4 @@ export { rentalsController } from './rentals.controller.js';
 export { paymentsController } from './payments.controller.js';
 export { maintenanceController } from './maintenance.controller.js';
 export { dashboardController } from './dashboard.controller.js';
+export { todosController } from './todos.controller.js';
