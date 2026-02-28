@@ -6,6 +6,7 @@ import paymentsRoutes from './payments.routes.js';
 import maintenanceRoutes from './maintenance.routes.js';
 import dashboardRoutes from './dashboard.routes.js';
 import todosRoutes from './todos.routes.js';
+import rentalPhotosRoutes from './rental-photos.routes.js';
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use('/payments', paymentsRoutes);
 router.use('/maintenance', maintenanceRoutes);
 router.use('/dashboard', dashboardRoutes);
 router.use('/todos', todosRoutes);
+router.use('/rental-photos', rentalPhotosRoutes);
 
 export default router;

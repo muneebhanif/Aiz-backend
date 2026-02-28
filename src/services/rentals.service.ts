@@ -14,6 +14,7 @@ type CreateRentalInput = {
   deposit: number;
   start_date: string;
   notes: string;
+  driver_signature: string;
 };
 
 type UpdateRentalInput = Partial<Omit<CreateRentalInput, 'vehicle_id'>>;

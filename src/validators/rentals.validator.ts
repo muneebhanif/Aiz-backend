@@ -15,6 +15,7 @@ export const createRentalBody = z.object({
   deposit: z.number().min(0).default(0),
   startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Start date must be YYYY-MM-DD'),
   notes: z.string().max(500).trim().default(''),
+  driverSignature: z.string().default(''),
 });
 
 export const updateRentalBody = z.object({
@@ -26,6 +27,7 @@ export const updateRentalBody = z.object({
   weeklyRent: z.number().positive(),
   deposit: z.number().min(0),
   notes: z.string().max(500).trim(),
+  driverSignature: z.string(),
 }).partial().passthrough();
 
 export const endRentalBody = z.object({
