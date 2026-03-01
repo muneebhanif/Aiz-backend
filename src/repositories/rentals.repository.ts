@@ -16,6 +16,7 @@ export interface RentalRow {
   end_date: string | null;
   notes: string;
   driver_signature: string;
+  issued_by: string | null;
   created_at: string;
   updated_at: string;
 }

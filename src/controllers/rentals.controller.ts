@@ -20,6 +20,7 @@ function toApiRental(row: RentalRow) {
     endDate: row.end_date,
     notes: row.notes,
     driverSignature: row.driver_signature,
+    issuedBy: row.issued_by ?? '',
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
@@ -54,6 +55,7 @@ export const rentalsController = {
       start_date: req.body.startDate,
       notes: req.body.notes ?? '',
       driver_signature: req.body.driverSignature ?? '',
+      issued_by: req.body.issuedBy ?? null,
     });
     sendCreated(res, toApiRental(rental));
   },
@@ -70,6 +72,7 @@ export const rentalsController = {
     if (req.body.startDate !== undefined) updates.start_date = req.body.startDate;
     if (req.body.notes !== undefined) updates.notes = req.body.notes;
     if (req.body.driverSignature !== undefined) updates.driver_signature = req.body.driverSignature;
+    if (req.body.issuedBy !== undefined) updates.issued_by = req.body.issuedBy;
 
     const rental = await rentalsService.update(req.params.id as string, updates);
     sendSuccess(res, toApiRental(rental));

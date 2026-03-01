@@ -15,6 +15,7 @@ type CreateRentalInput = {
   start_date: string;
   notes: string;
   driver_signature: string;
+  issued_by: string | null;
 };
 
 type UpdateRentalInput = Partial<Omit<CreateRentalInput, 'vehicle_id'>>;
