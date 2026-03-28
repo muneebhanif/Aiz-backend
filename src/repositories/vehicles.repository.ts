@@ -8,6 +8,7 @@ export interface VehicleRow {
   model: string;
   year: number;
   color: string;
+  council: 'bradford' | 'kirklees' | 'leeds' | 'calderdale' | 'other';
   company: 'aiz-cars' | 'fizzys-taxi-hire' | 'other';
   status: 'available' | 'rented';
   road_tax_expiry: string | null;
