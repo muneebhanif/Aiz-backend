@@ -1,6 +1,5 @@
 import { paymentsRepository, type PaymentRow, type PaymentFilters } from '../repositories/payments.repository.js';
 import { rentalsRepository } from '../repositories/rentals.repository.js';
-import { ukTodayIso } from '../utils/dateUk.js';
 import { BadRequestError } from '../utils/errors.js';
 
 type CreatePaymentInput = Omit<PaymentRow, 'id' | 'created_at' | 'updated_at'>;
@@ -43,7 +42,7 @@ export const paymentsService = {
 
     // Server-generated payment date for paid/partial
     const paymentDate = status !== 'unpaid'
-      ? (input.payment_date || ukTodayIso())
+      ? (input.payment_date || new Date().toISOString().split('T')[0]!)
       : null;
 
     return paymentsRepository.create({
@@ -69,7 +68,7 @@ export const paymentsService = {
     }
 
     const paymentDate = status && status !== 'unpaid'
-      ? (input.payment_date || existing.payment_date || ukTodayIso())
+      ? (input.payment_date || existing.payment_date || new Date().toISOString().split('T')[0]!)
       : (input.payment_date ?? existing.payment_date);
 
     return paymentsRepository.update(id, {

@@ -1,7 +1,6 @@
 import { rentalsRepository, type RentalRow } from '../repositories/rentals.repository.js';
 import { vehiclesRepository } from '../repositories/vehicles.repository.js';
 import { paymentsRepository } from '../repositories/payments.repository.js';
-import { ukTodayIso } from '../utils/dateUk.js';
 import { BadRequestError } from '../utils/errors.js';
 
 type CreateRentalInput = {
@@ -69,7 +68,7 @@ export const rentalsService = {
   async endRental(id: string, endDate?: string): Promise<RentalRow> {
     const rental = await rentalsRepository.findById(id);
 
-    const effectiveEndDate = endDate || ukTodayIso();
+    const effectiveEndDate = endDate || new Date().toISOString().split('T')[0]!;
 
     // Business rule: end date cannot be before start date
     if (effectiveEndDate < rental.start_date) {
