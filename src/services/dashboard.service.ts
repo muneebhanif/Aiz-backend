@@ -2,6 +2,7 @@ import { vehiclesRepository } from '../repositories/vehicles.repository.js';
 import { rentalsRepository } from '../repositories/rentals.repository.js';
 import { paymentsRepository } from '../repositories/payments.repository.js';
 import { maintenanceRepository } from '../repositories/maintenance.repository.js';
+import { ukTodayIso } from '../utils/dateUk.js';
 
 export interface DashboardStats {
   totalVehicles: number;
@@ -44,7 +45,7 @@ export const dashboardService = {
     const totalMaintenanceCost = maintenanceRecords.reduce((sum, m) => sum + m.cost, 0);
 
     // Compliance alerts: vehicles with expired MOT, insurance, or road tax
-    const today = new Date().toISOString().split('T')[0]!;
+    const today = ukTodayIso();
     const complianceAlerts = vehicles.filter((v) => {
       return (
         (v.mot_expiry && v.mot_expiry < today) ||
