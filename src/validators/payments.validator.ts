@@ -1,6 +1,15 @@
 import { z } from 'zod';
 
-const paymentMethod = z.enum(['cash', 'aiz-account', 'tide-account', 'personal-other', 'other-account', '']);
+const paymentMethod = z.enum([
+  'cash',
+  'aiz-account',
+  'tide-account',
+  'counting-up-rizzy',
+  'natwest-momby',
+  'personal-other',
+  'other-account',
+  '',
+]);
 
 export const paymentIdParam = z.object({
   id: z.string().uuid('Invalid payment ID'),
