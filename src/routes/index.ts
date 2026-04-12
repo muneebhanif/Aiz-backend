@@ -8,6 +8,8 @@ import dashboardRoutes from './dashboard.routes.js';
 import todosRoutes from './todos.routes.js';
 import rentalPhotosRoutes from './rental-photos.routes.js';
 import settingsRoutes from './settings.routes.js';
+import savingsRoutes from './savings.routes.js';
+import owesRoutes from './owes.routes.js';
 
 const router = Router();
 
@@ -20,5 +22,7 @@ router.use('/dashboard', dashboardRoutes);
 router.use('/todos', todosRoutes);
 router.use('/rental-photos', rentalPhotosRoutes);
 router.use('/settings', settingsRoutes);
+router.use('/savings', savingsRoutes);
+router.use('/owes', owesRoutes);
 
 export default router;
