@@ -9,7 +9,7 @@ export interface VehicleRow {
   year: number;
   color: string;
   council: 'bradford' | 'kirklees' | 'leeds' | 'calderdale' | 'other';
-  company: 'aiz-cars' | 'fizzys-taxi-hire' | 'other';
+  company: 'aiz-cars' | 'fizzys-taxi-hire' | 'capital-vehicle-rentals' | 'other';
   status: 'available' | 'rented';
   road_tax_expiry: string | null;
   mot_expiry: string | null;
