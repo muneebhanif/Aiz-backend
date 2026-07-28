@@ -18,7 +18,7 @@ export const createVehicleBody = z.object({
   color: z.string().max(30).trim().default(''),
   council: z.enum(['bradford', 'kirklees', 'leeds', 'calderdale', 'other']).default('other'),
   company: z.enum(['aiz-cars', 'fizzys-taxi-hire', 'capital-vehicle-rentals', 'other']).default('aiz-cars'),
-  status: z.enum(['available', 'rented']).default('available'),
+  status: z.enum(['available', 'rented', 'damaged']).default('available'),
   roadTaxExpiry: optionalDate,
   motExpiry: optionalDate,
   taxiPlateExpiry: optionalDate,

@@ -7,6 +7,7 @@ export interface DashboardStats {
   totalVehicles: number;
   availableVehicles: number;
   rentedVehicles: number;
+  damagedVehicles: number;
   totalWeeklyRevenue: number;
   totalOutstandingBalance: number;
   totalMaintenanceCost: number;
@@ -27,6 +28,7 @@ export const dashboardService = {
     const totalVehicles = vehicles.length;
     const availableVehicles = vehicles.filter((v) => v.status === 'available').length;
     const rentedVehicles = vehicles.filter((v) => v.status === 'rented').length;
+    const damagedVehicles = vehicles.filter((v) => v.status === 'damaged').length;
 
     // Weekly revenue: sum of weekly_rent for active rentals
     const activeRentals = rentals.filter((r) => r.status === 'active');
@@ -70,6 +72,7 @@ export const dashboardService = {
       totalVehicles,
       availableVehicles,
       rentedVehicles,
+      damagedVehicles,
       totalWeeklyRevenue,
       totalOutstandingBalance,
       totalMaintenanceCost,

@@ -10,7 +10,7 @@ export interface VehicleRow {
   color: string;
   council: 'bradford' | 'kirklees' | 'leeds' | 'calderdale' | 'other';
   company: 'aiz-cars' | 'fizzys-taxi-hire' | 'capital-vehicle-rentals' | 'other';
-  status: 'available' | 'rented';
+  status: 'available' | 'rented' | 'damaged';
   road_tax_expiry: string | null;
   mot_expiry: string | null;
   taxi_plate_expiry: string | null;
@@ -105,7 +105,7 @@ export const vehiclesRepository = {
     if (error) throw new InternalError(`Failed to delete vehicle: ${error.message}`);
   },
 
-  async updateStatus(id: string, status: 'available' | 'rented'): Promise<VehicleRow> {
+  async updateStatus(id: string, status: 'available' | 'rented' | 'damaged'): Promise<VehicleRow> {
     return this.update(id, { status });
   },
 };

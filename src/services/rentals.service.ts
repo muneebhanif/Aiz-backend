@@ -36,8 +36,8 @@ export const rentalsService = {
   async create(input: CreateRentalInput): Promise<RentalRow> {
     // Business rule: vehicle must exist and be available
     const vehicle = await vehiclesRepository.findById(input.vehicle_id);
-    if (vehicle.status === 'rented') {
-      throw new BadRequestError('Vehicle is already rented');
+    if (vehicle.status !== 'available') {
+      throw new BadRequestError(`Vehicle is ${vehicle.status} and cannot be rented`);
     }
 
     // Business rule: weekly rent must be positive
