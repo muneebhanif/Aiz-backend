@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { todosController } from '../controllers/todos.controller.js';
 import { validate } from '../middleware/validate.middleware.js';
-import { authenticate } from '../middleware/auth.middleware.js';
+import { authenticate, complianceAccessGuard } from '../middleware/auth.middleware.js';
 import {
   todoIdParam,
   createTodoBody,
@@ -10,8 +10,9 @@ import {
 
 const router = Router();
 
-// All todos routes require authentication
+// All todos routes require authentication and block compliance-only accounts
 router.use(authenticate);
+router.use(complianceAccessGuard);
 
 // GET /api/v1/todos
 router.get('/', todosController.getAll);

@@ -32,10 +32,14 @@ export async function verifyJwt(token: string): Promise<JwtPayload> {
       throw new UnauthorizedError('Token missing subject claim');
     }
 
+    const userMeta = (payload['user_metadata'] || {}) as Record<string, unknown>;
+    const appMeta = (payload['app_metadata'] || {}) as Record<string, unknown>;
+    const effectiveRole = (userMeta['role'] as string) || (appMeta['role'] as string) || (payload['role'] as string) || undefined;
+
     return {
       sub: payload.sub,
       email: payload['email'] as string | undefined,
-      role: payload['role'] as string | undefined,
+      role: effectiveRole,
       aud: payload.aud as string | undefined,
       iat: payload.iat,
       exp: payload.exp,

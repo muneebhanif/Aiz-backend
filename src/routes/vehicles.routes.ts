@@ -1,13 +1,14 @@
 import { Router } from 'express';
 import { vehiclesController } from '../controllers/vehicles.controller.js';
 import { validate } from '../middleware/validate.middleware.js';
-import { authenticate } from '../middleware/auth.middleware.js';
+import { authenticate, complianceAccessGuard } from '../middleware/auth.middleware.js';
 import { vehicleIdParam, createVehicleBody, updateVehicleBody } from '../validators/vehicles.validator.js';
 
 const router = Router();
 
-// All vehicle routes require authentication
+// All vehicle routes require authentication and compliance access check
 router.use(authenticate);
+router.use(complianceAccessGuard);
 
 // GET /api/v1/vehicles
 router.get('/', vehiclesController.getAll);

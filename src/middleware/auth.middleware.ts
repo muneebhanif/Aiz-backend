@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
 import { verifyJwt, type JwtPayload } from '../auth/jwt.js';
-import { UnauthorizedError } from '../utils/errors.js';
+import { UnauthorizedError, ForbiddenError } from '../utils/errors.js';
 
 /**
  * Extend Express Request to carry verified user identity.
@@ -60,4 +60,31 @@ export function requireRole(...allowedRoles: string[]) {
     }
     next();
   };
+}
+
+/**
+ * Guard that enforces compliance-only accounts can only view and update vehicle compliance data.
+ * All financial, rental, maintenance, todo, and system setting endpoints are strictly blocked.
+ */
+export function complianceAccessGuard(req: Request, _res: Response, next: NextFunction): void {
+  if (!req.user || req.user.role !== 'compliance') {
+    return next();
+  }
+
+  const path = req.baseUrl || req.path;
+  const isVehiclePath = path.includes('/vehicles');
+  const isAuthPath = path.includes('/auth');
+
+  if (isAuthPath) {
+    return next();
+  }
+
+  if (isVehiclePath) {
+    if (req.method === 'GET' || req.method === 'PATCH') {
+      return next();
+    }
+    return next(new ForbiddenError('Compliance accounts can only view and update vehicle compliance dates'));
+  }
+
+  return next(new ForbiddenError('Compliance accounts are restricted to compliance management only'));
 }

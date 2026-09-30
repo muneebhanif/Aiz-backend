@@ -1,12 +1,13 @@
 import { Router } from 'express';
 import { rentalPhotosController } from '../controllers/rental-photos.controller.js';
 import { validate } from '../middleware/validate.middleware.js';
-import { authenticate } from '../middleware/auth.middleware.js';
+import { authenticate, complianceAccessGuard } from '../middleware/auth.middleware.js';
 import { rentalIdParam, photoIdParam, createPhotosBody } from '../validators/rental-photos.validator.js';
 
 const router = Router();
 
 router.use(authenticate);
+router.use(complianceAccessGuard);
 
 // GET /api/v1/rental-photos/:rentalId
 router.get('/:rentalId', validate({ params: rentalIdParam }), rentalPhotosController.getByRentalId);

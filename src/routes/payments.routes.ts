@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { paymentsController } from '../controllers/payments.controller.js';
 import { validate } from '../middleware/validate.middleware.js';
-import { authenticate } from '../middleware/auth.middleware.js';
+import { authenticate, complianceAccessGuard } from '../middleware/auth.middleware.js';
 import {
   paymentIdParam,
   createPaymentBody,
@@ -11,8 +11,9 @@ import {
 
 const router = Router();
 
-// All payment routes require authentication
+// All payment routes require authentication and block compliance-only accounts
 router.use(authenticate);
+router.use(complianceAccessGuard);
 
 // GET /api/v1/payments?rentalId=...&vehicleId=...&status=...
 router.get(

@@ -1,11 +1,12 @@
 import { Router } from 'express';
 import { settingsController } from '../controllers/settings.controller.js';
 import { validate } from '../middleware/validate.middleware.js';
-import { authenticate } from '../middleware/auth.middleware.js';
+import { authenticate, complianceAccessGuard } from '../middleware/auth.middleware.js';
 import { settingKeyParam, upsertSettingBody } from '../validators/settings.validator.js';
 
 const router = Router();
 router.use(authenticate);
+router.use(complianceAccessGuard);
 
 // GET /api/v1/settings/:key
 router.get('/:key', validate({ params: settingKeyParam }), settingsController.get);

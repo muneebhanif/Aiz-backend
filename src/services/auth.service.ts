@@ -27,6 +27,8 @@ export const authService = {
       throw new UnauthorizedError('Authentication failed');
     }
 
+    const effectiveRole = (data.user.user_metadata?.role as string) || (data.user.app_metadata?.role as string) || data.user.role;
+
     return {
       access_token: data.session.access_token,
       refresh_token: data.session.refresh_token,
@@ -34,7 +36,7 @@ export const authService = {
       user: {
         id: data.user.id,
         email: data.user.email,
-        role: data.user.role,
+        role: effectiveRole,
       },
     };
   },
@@ -59,10 +61,12 @@ export const authService = {
       throw new BadRequestError(`Signup failed: ${error.message}`);
     }
 
+    const effectiveRole = (data.user.user_metadata?.role as string) || (data.user.app_metadata?.role as string) || data.user.role;
+
     return {
       id: data.user.id,
       email: data.user.email,
-      role: data.user.role,
+      role: effectiveRole,
     };
   },
 
@@ -82,6 +86,8 @@ export const authService = {
       throw new UnauthorizedError('Invalid or expired refresh token');
     }
 
+    const effectiveRole = (data.session.user.user_metadata?.role as string) || (data.session.user.app_metadata?.role as string) || data.session.user.role;
+
     return {
       access_token: data.session.access_token,
       refresh_token: data.session.refresh_token,
@@ -89,7 +95,7 @@ export const authService = {
       user: {
         id: data.session.user.id,
         email: data.session.user.email,
-        role: data.session.user.role,
+        role: effectiveRole,
       },
     };
   },

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { maintenanceController } from '../controllers/maintenance.controller.js';
 import { validate } from '../middleware/validate.middleware.js';
-import { authenticate } from '../middleware/auth.middleware.js';
+import { authenticate, complianceAccessGuard } from '../middleware/auth.middleware.js';
 import {
   maintenanceIdParam,
   createMaintenanceBody,
@@ -11,8 +11,9 @@ import {
 
 const router = Router();
 
-// All maintenance routes require authentication
+// All maintenance routes require authentication and block compliance-only accounts
 router.use(authenticate);
+router.use(complianceAccessGuard);
 
 // GET /api/v1/maintenance?vehicleId=...
 router.get(
